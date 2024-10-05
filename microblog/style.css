@@ -50,7 +50,7 @@ button:hover {
 
 .post img {
     max-width: 50%;
-    height: auto;
+    height: 50%;
     margin-top: 10px;
     border-radius: 5px;
 }
