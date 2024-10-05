@@ -49,7 +49,7 @@ function loadPosts() {
                 <button onclick="addReaction(${index}, 'hearts')">❤️ ${post.reactions.hearts}</button>
                 <button onclick="addReaction(${index}, 'thumbsUps')">👍 ${post.reactions.thumbsUps}</button>
                 <button onclick="addReaction(${index}, 'smiles')">😊 ${post.reactions.smiles}</button>
-                <button onclick="removeReaction(${index})">👎 Unlike</button>
+                <button onclick="removeReaction(${index})">👎 ${post.reactions.Unlike}</button>
             </div>
             <div class="comment-section">
                 <h5>Comments (<span class="comment-counter">${post.comments.length}</span>):</h5>
@@ -76,6 +76,7 @@ function addPost(user, content, image) {
             hearts: 0,
             thumbsUps: 0,
             smiles: 0,
+            unlike: 0,
         }
     };
 
