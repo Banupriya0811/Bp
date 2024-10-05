@@ -1,5 +1,6 @@
-// In-memory store for posts
+// In-memory store for posts and followers
 let posts = [];
+let followedUsers = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     loadPosts();
@@ -38,17 +39,20 @@ function loadPosts() {
     posts.forEach((post, index) => {
         const postElement = document.createElement('div');
         postElement.classList.add('post');
+        const followText = followedUsers.includes(post.user) ? 'Unfollow' : 'Follow';
         postElement.innerHTML = `
             <h4>${post.user}</h4>
+            <button class="follow-button" onclick="toggleFollow('${post.user}', ${index})">${followText}</button>
             <p>${post.content}</p>
             ${post.image ? `<img src="${post.image}" alt="Post Image" style="max-width: 100%;">` : ''}
             <div class="reaction-buttons">
                 <button onclick="addReaction(${index}, 'hearts')">❤️ ${post.reactions.hearts}</button>
                 <button onclick="addReaction(${index}, 'thumbsUps')">👍 ${post.reactions.thumbsUps}</button>
                 <button onclick="addReaction(${index}, 'smiles')">😊 ${post.reactions.smiles}</button>
+                <button onclick="removeReaction(${index})">👎 Unlike</button>
             </div>
             <div class="comment-section">
-                <h5>Comments:</h5>
+                <h5>Comments (<span class="comment-counter">${post.comments.length}</span>):</h5>
                 <ul id="comments-${index}">
                     ${post.comments.map(comment => `<li>${comment}</li>`).join('')}
                 </ul>
@@ -71,7 +75,7 @@ function addPost(user, content, image) {
         reactions: {
             hearts: 0,
             thumbsUps: 0,
-            smiles: 0
+            smiles: 0,
         }
     };
 
@@ -100,8 +104,32 @@ function addReaction(index, type) {
     loadPosts();
 }
 
+// Function to remove one reaction
+function removeReaction(index) {
+    const reactionTypes = ['hearts', 'thumbsUps', 'smiles'];
+    
+    // Deduct one reaction from each reaction type, but don't go below 0
+    reactionTypes.forEach(type => {
+        if (posts[index].reactions[type] > 0) {
+            posts[index].reactions[type] -= 1;
+        }
+    });
+
+    loadPosts();
+}
+
 // Function to delete a post
 function deletePost(index) {
     posts.splice(index, 1);
+    loadPosts();
+}
+
+// Function to follow/unfollow a user
+function toggleFollow(user, index) {
+    if (followedUsers.includes(user)) {
+        followedUsers = followedUsers.filter(follower => follower !== user);
+    } else {
+        followedUsers.push(user);
+    }
     loadPosts();
 }
