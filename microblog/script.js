@@ -45,6 +45,7 @@ function loadPosts() {
             <button class="follow-button" onclick="toggleFollow('${post.user}', ${index})">${followText}</button>
             <p>${post.content}</p>
             ${post.image ? `<img src="${post.image}" alt="Post Image" style="max-width: 100%;">` : ''}
+            <p class="post-timestamp">${formatDateTime(post.timestamp)}</p>
             <div class="reaction-buttons">
                 <button onclick="addReaction(${index}, 'hearts')">❤️ ${post.reactions.hearts}</button>
                 <button onclick="addReaction(${index}, 'thumbsUps')">👍 ${post.reactions.thumbsUps}</button>
@@ -54,7 +55,12 @@ function loadPosts() {
             <div class="comment-section">
                 <h5>Comments (<span class="comment-counter">${post.comments.length}</span>):</h5>
                 <ul id="comments-${index}">
-                    ${post.comments.map(comment => `<li>${comment}</li>`).join('')}
+                    ${post.comments.map(comment => `
+                        <li>
+                            ${comment.text}
+                            <p class="comment-timestamp">${formatDateTime(comment.timestamp)}</p>
+                        </li>
+                    `).join('')}
                 </ul>
                 <input type="text" id="comment-input-${index}" class="comment-input" placeholder="Add a comment...">
                 <button class="comment-button" onclick="addComment(${index})">Comment</button>
@@ -65,12 +71,13 @@ function loadPosts() {
     });
 }
 
-// Add a new post
+// Add a new post with timestamp
 function addPost(user, content, image) {
     const newPost = {
         user,
         content,
         image,
+        timestamp: new Date(),
         comments: [],
         reactions: {
             hearts: 0,
@@ -83,7 +90,7 @@ function addPost(user, content, image) {
     loadPosts();
 }
 
-// Function to add a comment
+// Function to add a comment with timestamp
 function addComment(index) {
     const commentInput = document.getElementById(`comment-input-${index}`);
     const comment = commentInput.value;
@@ -93,7 +100,11 @@ function addComment(index) {
         return;
     }
 
-    posts[index].comments.push(comment);
+    posts[index].comments.push({
+        text: comment,
+        timestamp: new Date()
+    });
+
     loadPosts();
     commentInput.value = ''; // Clear the input
 }
@@ -132,4 +143,17 @@ function toggleFollow(user, index) {
         followedUsers.push(user);
     }
     loadPosts();
+}
+
+// Function to format date and time in a readable format
+function formatDateTime(date) {
+    const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+    };
+    return new Date(date).toLocaleDateString('en-US', options);
 }
