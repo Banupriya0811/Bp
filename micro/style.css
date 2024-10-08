@@ -1,70 +1,91 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
     padding: 20px;
-    background-color: #f4f4f4;
 }
 
-.post-form {
-    margin-bottom: 20px;
-    background-color: white;
+/* Header Styling */
+h1 {
+    text-align: center;
+    color: #4A90E2;
+}
+
+/* Post Container */
+#posts {
+    margin-top: 20px;
+}
+
+/* Post Styling */
+.post {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-input[type="text"],
-textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+/* User Name */
+h4 {
+    margin-bottom: 10px;
 }
 
+/* Button Styling */
 button {
-    background-color: #28a745;
-    color: white;
+    background-color: #4A90E2;
+    color: #ffffff;
     border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
+    border-radius: 5px;
+    padding: 8px 12px;
     cursor: pointer;
+    transition: background-color 0.3s;
+    margin-right: 5px;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #357ABD;
 }
 
-.post {
-    background-color: white;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.reaction-buttons button {
-    margin-right: 10px;
-    cursor: pointer;
-}
-
+/* Comment Section */
 .comment-section {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .comment-input {
-    width: 80%;
-    padding: 5px;
+    width: 70%;
+    padding: 8px;
+    margin-right: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
-.comment-button {
-    padding: 5px 10px;
+/* Reaction Buttons */
+.reaction-buttons {
+    margin-top: 10px;
 }
 
-.user-list, .followers-list {
-    margin-top: 20px;
-    background-color: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* Timestamp Styling */
+.post-timestamp,
+.comment-timestamp {
+    font-size: 0.9em;
+    color: #888;
+}
+
+/* Delete Button Styling */
+.delete-button {
+    background-color: #d9534f; /* Bootstrap danger color */
+}
+
+.delete-button:hover {
+    background-color: #c9302c;
 }
