@@ -1,4 +1,12 @@
-// Object to hold the current order details
+
+// Function to update the order details displayed on the page
+function updateOrderDetails() {
+    const orderDetails = document.getElementById('order-details');
+    orderDetails.innerHTML = '';
+
+    // Display the restaurant name
+    const restaurantName = document.createElement('p');
+    rest// Object to hold the current order details
 let order = {
     restaurant: '',
     items: []
@@ -32,16 +40,7 @@ orderButtons.forEach(button => {
         // Enable the "Place Order" button
         document.getElementById('place-order-btn').disabled = false;
     });
-});
-
-// Function to update the order details displayed on the page
-function updateOrderDetails() {
-    const orderDetails = document.getElementById('order-details');
-    orderDetails.innerHTML = '';
-
-    // Display the restaurant name
-    const restaurantName = document.createElement('p');
-    restaurantName.innerText = `Restaurant: ${order.restaurant}`;
+});aurantName.innerText = `Restaurant: ${order.restaurant}`;
     orderDetails.appendChild(restaurantName);
 
     // Create a list of ordered items
