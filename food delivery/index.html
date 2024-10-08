@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery Website</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome to XYZ Food Delivery</h1>
+
+        <h2>Restaurants</h2>
+        <div id="restaurant-list">
+
+            <!-- Restaurant A Menu -->
+            <div class="restaurant">
+                <h3>Restaurant A</h3>
+                <p>Rating: ★★★★☆</p>
+                <p>Reviews: 120</p>
+                <ul>
+                    <li>
+                        <span>Pizza - $10</span>
+                        <img src="images/pizza.jpg" alt="Pizza" class="food-img">
+                        <button class="add-to-cart-btn" data-restaurant="Restaurant A" data-item="Pizza" data-price="10">Add to Cart</button>
+                        <label for="pizza-rating">Rate this item:</label>
+                        <select class="rating" data-item="Pizza" data-restaurant="Restaurant A">
+                            <option value="0">Select rating</option>
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span>Burger - $5</span>
+                        <img src="images/burger.jpg" alt="Burger" class="food-img">
+                        <button class="add-to-cart-btn" data-restaurant="Restaurant A" data-item="Burger" data-price="5">Add to Cart</button>
+                        <label for="burger-rating">Rate this item:</label>
+                        <select class="rating" data-item="Burger" data-restaurant="Restaurant A">
+                            <option value="0">Select rating</option>
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span>Fries - $3</span>
+                        <img src="images/fries.jpg" alt="Fries" class="food-img">
+                        <button class="add-to-cart-btn" data-restaurant="Restaurant A" data-item="Fries" data-price="3">Add to Cart</button>
+                        <label for="fries-rating">Rate this item:</label>
+                        <select class="rating" data-item="Fries" data-restaurant="Restaurant A">
+                            <option value="0">Select rating</option>
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Restaurant B Menu -->
+            <div class="restaurant">
+                <h3>Restaurant B</h3>
+                <p>Rating: ★★★★☆</p>
+                <p>Reviews: 95</p>
+                <ul>
+                    <li>
+                        <span>Pasta - $8</span>
+                        <img src="images/pasta.jpg" alt="Pasta" class="food-img">
+                        <button class="add-to-cart-btn" data-restaurant="Restaurant B" data-item="Pasta" data-price="8">Add to Cart</button>
+                        <label for="pasta-rating">Rate this item:</label>
+                        <select class="rating" data-item="Pasta" data-restaurant="Restaurant B">
+                            <option value="0">Select rating</option>
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span>Salad - $6</span>
+                        <img src="images/salad.jpg" alt="Salad" class="food-img">
+                        <button class="add-to-cart-btn" data-restaurant="Restaurant B" data-item="Salad" data-price="6">Add to Cart</button>
+                        <label for="salad-rating">Rate this item:</label>
+                        <select class="rating" data-item="Salad" data-restaurant="Restaurant B">
+                            <option value="0">Select rating</option>
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span>Garlic Bread - $4</span>
+                        <img src="images/garlic-bread.jpg" alt="Garlic Bread" class="food-img">
+                        <button class="add-to-cart-btn" data-restaurant="Restaurant B" data-item="Garlic Bread" data-price="4">Add to Cart</button>
+                        <label for="garlic-bread-rating">Rate this item:</label>
+                        <select class="rating" data-item="Garlic Bread" data-restaurant="Restaurant B">
+                            <option value="0">Select rating</option>
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Restaurant C Menu -->
+            <div class="restaurant">
+                <h3>Restaurant C</h3>
+                <p>Rating: ★★★★★</p>
+                <p>Reviews: 150</p>
+                <ul>
+                    <li>
+                        <span>Steak - $15</span>
+                        <img src="images/steak.jpg" alt="Steak" class="food-img">
+                        <button class="add-to-cart-btn" data-restaurant="Restaurant C" data-item="Steak" data-price="15">Add to Cart</button>
+                        <label for="steak-rating">Rate this item:</label>
+                        <select class="rating" data-item="Steak" data-restaurant="Restaurant C">
+                            <option value="0">Select rating</option>
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span>Chicken Wings - $7</span>
+                        <img src="images/chicken-wings.jpg" alt="Chicken Wings" class="food-img">
+                        <button class="add-to-cart-btn" data-restaurant="Restaurant C" data-item="Chicken Wings" data-price="7">Add to Cart</button>
+                        <label for="chicken-wings-rating">Rate this item:</label>
+                        <select class="rating" data-item="Chicken Wings" data-restaurant="Restaurant C">
+                            <option value="0">Select rating</option>
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Restaurant D Menu -->
+            <div class="restaurant">
+                <h3>Restaurant D</h3>
+                <p>Rating: ★★★☆☆</p>
+                <p>Reviews: 70</p>
+                <ul>
+                    <li>
+                        <span>Fish & Chips - $12</span>
+                        <img src="images/fish-chips.jpg" alt="Fish & Chips" class="food-img">
+                        <button class="add-to-cart-btn" data-restaurant="Restaurant D" data-item="Fish & Chips" data-price="12">Add to Cart</button>
+                        <label for="fish-chips-rating">Rate this item:</label>
+                        <select class="rating" data-item="Fish & Chips" data-restaurant="Restaurant D">
+                            <option value="0">Select rating</option>
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </li>
+                    <li>
+                        <span>salad - $9</span>
+                        <img src="images/salad.jpg" alt="salad" class="food-img">
+                        <button class="add-to-cart-btn" data-restaurant="Restaurant D" data-item="salad" data-price="9">Add to Cart</button>
+                        <label for="quesadilla-rating">Rate this item:</label>
+                        <select class="rating" data-item="salad" data-restaurant="Restaurant D">
+                            <option value="0">Select rating</option>
+                            <option value="1">★</option>
+                            <option value="2">★★</option>
+                            <option value="3">★★★</option>
+                            <option value="4">★★★★</option>
+                            <option value="5">★★★★★</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Your Cart</h2>
+        <div id="cart-details"></div>
+        <div id="total-amount">Total Amount: $0.00</div>
+
+        <h2>Delivery Information</h2>
+        <input type="text" id="delivery-address" placeholder="Enter delivery address">
+        
+        <h2>Payment Method</h2>
+        <select id="payment-method">
+            <option value="credit-card">Credit Card</option>
+            <option value="paypal">PayPal</option>
+        </select>
+        <div id="credit-card-info">
+            <input type="text" id="card-number" placeholder="Card Number">
+            <input type="text" id="card-expiry" placeholder="Expiry Date (MM/YY)">
+            <input type="text" id="card-cvc" placeholder="CVC">
+        </div>
+        
+        <button id="checkout-btn" disabled>Checkout</button>
+        <p id="order-status"></p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
