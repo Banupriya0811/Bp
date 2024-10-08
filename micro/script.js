@@ -1,11 +1,9 @@
-// In-memory store for posts, users, and followers
+// In-memory store for posts and followers
 let posts = [];
-let users = ['Alice', 'Bob', 'Charlie'];  // Sample users
-let followers = {};  // Track who follows whom
+let users = {};  // Track users and their followers
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadUsers();
-    loadFollowers();
+    loadPosts();
 
     // Handle post button click
     document.getElementById('postButton').addEventListener('click', function () {
@@ -33,30 +31,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// Load users
-function loadUsers() {
-    const userList = document.getElementById('userList');
-    userList.innerHTML = '';
+// Load posts
+function loadPosts() {
+    const postsContainer = document.getElementById('posts');
+    postsContainer.innerHTML = '';
 
-    users.forEach(user => {
-        const userElement = document.createElement('li');
-        userElement.innerHTML = `
-            ${user} <button onclick="toggleFollow('${user}')">Follow/Unfollow</button>
+    posts.forEach((post, index) => {
+        const postElement = document.createElement('div');
+        postElement.classList.add('post');
+
+        // Get followers for the post's user
+        const followers = users[post.user] ? users[post.user].followers : [];
+        const followText = followers.includes('currentUser') ? 'Unfollow' : 'Follow';  // Assume 'currentUser' is the logged-in user
+
+        postElement.innerHTML = `
+            <h4>${post.user}</h4>
+            <button class="follow-button" onclick="toggleFollow('${post.user}')">${followText}</button>
+            <p>${post.content}</p>
+            ${post.image ? `<img src="${post.image}" alt="Post Image" style="max-width: 100%;">` : ''}
+            <p class="post-timestamp">${formatDateTime(post.timestamp)}</p>
+            <div class="reaction-buttons">
+                <button onclick="addReaction(${index}, 'hearts')">❤️ ${post.reactions.hearts}</button>
+                <button onclick="addReaction(${index}, 'thumbsUps')">👍 ${post.reactions.thumbsUps}</button>
+                <button onclick="addReaction(${index}, 'smiles')">😊 ${post.reactions.smiles}</button>
+                <button onclick="removeReaction(${index})">👎 Unlike</button>
+            </div>
+            <div class="comment-section">
+                <h5>Comments (<span class="comment-counter">${post.comments.length}</span>):</h5>
+                <ul id="comments-${index}">
+                    ${post.comments.map(comment => `
+                        <li>
+                            ${comment.text}
+                            <p class="comment-timestamp">${formatDateTime(comment.timestamp)}</p>
+                        </li>
+                    `).join('')}
+                </ul>
+                <input type="text" id="comment-input-${index}" class="comment-input" placeholder="Add a comment...">
+                <button class="comment-button" onclick="addComment(${index})">Comment</button>
+            </div>
+            <button class="delete-button" onclick="deletePost(${index})">Delete Post</button>
         `;
-        userList.appendChild(userElement);
+        postsContainer.appendChild(postElement);
     });
-}
-
-// Load followers
-function loadFollowers() {
-    const followersList = document.getElementById('followersList');
-    followersList.innerHTML = '';
-
-    for (let [user, followerList] of Object.entries(followers)) {
-        const followerElement = document.createElement('li');
-        followerElement.innerText = `${user}: ${followerList.join(', ') || 'No followers'}`;
-        followersList.appendChild(followerElement);
-    }
 }
 
 // Add a new post with timestamp
@@ -68,61 +84,21 @@ function addPost(user, content, image) {
         timestamp: new Date(),
         comments: [],
         reactions: {
-            likes: 0,
-            dislikes: 0,
+            hearts: 0,
+            thumbsUps: 0,
+            smiles: 0,
         }
     };
 
     posts.push(newPost);
+    // Initialize user if not already present
+    if (!users[user]) {
+        users[user] = { followers: [] };
+    }
     loadPosts();
 }
 
-// Load posts
-function loadPosts() {
-    const postsContainer = document.getElementById('posts');
-    postsContainer.innerHTML = '';
-
-    posts.forEach((post, index) => {
-        const postElement = document.createElement('div');
-        postElement.classList.add('post');
-
-        postElement.innerHTML = `
-            <h4>${post.user}</h4>
-            <p>${post.content}</p>
-            ${post.image ? `<img src="${post.image}" alt="Post Image" style="max-width: 100%;">` : ''}
-            <p class="post-timestamp">${formatDateTime(post.timestamp)}</p>
-            <div class="reaction-buttons">
-                <button onclick="addLike(${index})">👍 ${post.reactions.likes}</button>
-                <button onclick="addDislike(${index})">👎 ${post.reactions.dislikes}</button>
-            </div>
-            <div class="comment-section">
-                <h5>Comments (<span class="comment-counter">${post.comments.length}</span>):</h5>
-                <ul id="comments-${index}">
-                    ${post.comments.map(comment => `
-                        <li>${comment.text} <p class="comment-timestamp">${formatDateTime(comment.timestamp)}</p></li>
-                    `).join('')}
-                </ul>
-                <input type="text" id="comment-input-${index}" class="comment-input" placeholder="Add a comment...">
-                <button class="comment-button" onclick="addComment(${index})">Comment</button>
-            </div>
-        `;
-        postsContainer.appendChild(postElement);
-    });
-}
-
-// Add a like
-function addLike(index) {
-    posts[index].reactions.likes += 1;
-    loadPosts();
-}
-
-// Add a dislike (unlike)
-function addDislike(index) {
-    posts[index].reactions.dislikes += 1;
-    loadPosts();
-}
-
-// Add a comment with timestamp
+// Function to add a comment with timestamp
 function addComment(index) {
     const commentInput = document.getElementById(`comment-input-${index}`);
     const comment = commentInput.value;
@@ -141,28 +117,50 @@ function addComment(index) {
     commentInput.value = ''; // Clear the input
 }
 
-// Toggle follow/unfollow
-function toggleFollow(followedUser) {
-    const currentUser = document.getElementById('user').value;
+// Function to add a reaction
+function addReaction(index, type) {
+    posts[index].reactions[type] += 1;
+    loadPosts();
+}
 
-    if (!currentUser) {
-        alert('Please enter your name to follow/unfollow users.');
-        return;
+// Function to remove one reaction
+function removeReaction(index) {
+    const reactionTypes = ['hearts', 'thumbsUps', 'smiles'];
+    
+    // Deduct one reaction from each reaction type, but don't go below 0
+    reactionTypes.forEach(type => {
+        if (posts[index].reactions[type] > 0) {
+            posts[index].reactions[type] -= 1;
+        }
+    });
+
+    loadPosts();
+}
+
+// Function to delete a post
+function deletePost(index) {
+    posts.splice(index, 1);
+    loadPosts();
+}
+
+// Function to follow/unfollow a user
+function toggleFollow(user) {
+    if (!users[user]) {
+        users[user] = { followers: [] };  // Initialize user if not present
     }
+    
+    const followers = users[user].followers;
+    const currentUser = 'currentUser'; // Assume 'currentUser' is the logged-in user
 
-    if (!followers[currentUser]) {
-        followers[currentUser] = [];
-    }
-
-    const index = followers[currentUser].indexOf(followedUser);
-
-    if (index === -1) {
-        followers[currentUser].push(followedUser);  // Follow
+    if (followers.includes(currentUser)) {
+        // Unfollow
+        users[user].followers = followers.filter(follower => follower !== currentUser);
     } else {
-        followers[currentUser].splice(index, 1);  // Unfollow
+        // Follow
+        users[user].followers.push(currentUser);
     }
-
-    loadFollowers();
+    
+    loadPosts();
 }
 
 // Function to format date and time in a readable format
