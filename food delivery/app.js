@@ -1,72 +1,62 @@
-
-// Function to update the order details displayed on the page
-function updateOrderDetails() {
+document.addEventListener('DOMContentLoaded', () => {
     const orderDetails = document.getElementById('order-details');
-    orderDetails.innerHTML = '';
+    const deliveryAddressInput = document.getElementById('delivery-address');
+    const placeOrderBtn = document.getElementById('place-order-btn');
+    const orderStatus = document.getElementById('order-status');
+    
+    let orders = [];
 
-    // Display the restaurant name
-    const restaurantName = document.createElement('p');
-    rest// Object to hold the current order details
-let order = {
-    restaurant: '',
-    items: []
-};
+    document.querySelectorAll('.order-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const restaurant = button.getAttribute('data-restaurant');
+            const item = button.getAttribute('data-item');
+            const price = button.getAttribute('data-price');
 
-// Event listener for all order buttons
-const orderButtons = document.querySelectorAll('.order-btn');
-orderButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const restaurant = button.getAttribute('data-restaurant');
-        const item = button.getAttribute('data-item');
-        const price = button.getAttribute('data-price');
+            // Add to orders array
+            orders.push({ restaurant, item, price });
 
-        // If the user selects food from a different restaurant, prompt to reset the order
-        if (order.restaurant !== restaurant && order.items.length > 0) {
-            if (!confirm('Your previous order will be cleared. Do you want to continue?')) {
-                return;
-            }
-            order.items = [];  // Clear the existing order
+            // Update order details
+            updateOrderDetails();
+            checkIfOrderCanBePlaced();
+        });
+    });
+
+    deliveryAddressInput.addEventListener('input', checkIfOrderCanBePlaced);
+
+    placeOrderBtn.addEventListener('click', () => {
+        const address = deliveryAddressInput.value;
+
+        if (orders.length > 0 && address) {
+            orderStatus.textContent = `Order placed! Your food will be delivered to ${address}.`;
+            resetOrder();
+        }
+    });
+
+    function updateOrderDetails() {
+        orderDetails.innerHTML = ''; // Clear current order details
+
+        if (orders.length === 0) {
+            orderDetails.innerHTML = '<p>No items ordered yet.</p>';
+            return;
         }
 
-        // Set the restaurant name in the order
-        order.restaurant = restaurant;
+        // Display each order
+        orders.forEach(order => {
+            const orderElement = document.createElement('p');
+            orderElement.textContent = `${order.item} from ${order.restaurant} - $${order.price}`;
+            orderDetails.appendChild(orderElement);
+        });
+    }
 
-        // Add the selected item to the order
-        order.items.push({ item, price });
+    function checkIfOrderCanBePlaced() {
+        const address = deliveryAddressInput.value.trim();
+        placeOrderBtn.disabled = orders.length === 0 || address === '';
+    }
 
-        // Update the displayed order details
+    function resetOrder() {
+        orders = [];
         updateOrderDetails();
-
-        // Enable the "Place Order" button
-        document.getElementById('place-order-btn').disabled = false;
-    });
-});aurantName.innerText = `Restaurant: ${order.restaurant}`;
-    orderDetails.appendChild(restaurantName);
-
-    // Create a list of ordered items
-    const itemList = document.createElement('ul');
-    order.items.forEach(orderItem => {
-        const item = document.createElement('li');
-        item.innerText = `${orderItem.item} - $${orderItem.price}`;
-        itemList.appendChild(item);
-    });
-    orderDetails.appendChild(itemList);
-}
-
-// Event listener for the "Place Order" button
-document.getElementById('place-order-btn').addEventListener('click', () => {
-    // Calculate the total cost of the order
-    const total = order.items.reduce((sum, item) => sum + parseFloat(item.price), 0);
-    
-    // Display the total and order status
-    document.getElementById('order-status').innerText = `Your order has been placed! Total: $${total.toFixed(2)}`;
-
-    // Reset the order object
-    order = { restaurant: '', items: [] };
-
-    // Clear the order details displayed on the page
-    document.getElementById('order-details').innerHTML = '<p>No items ordered yet.</p>';
-
-    // Disable the "Place Order" button again
-    document.getElementById('place-order-btn').disabled = true;
+        deliveryAddressInput.value = '';
+        placeOrderBtn.disabled = true;
+    }
 });
