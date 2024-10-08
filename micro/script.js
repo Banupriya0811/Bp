@@ -1,6 +1,6 @@
 // In-memory store for posts and followers
 let posts = [];
-let users = {};  // Track users and their followers
+let followedUsers = [];  // Track followed users
 
 document.addEventListener('DOMContentLoaded', () => {
     loadPosts();
@@ -40,9 +40,9 @@ function loadPosts() {
         const postElement = document.createElement('div');
         postElement.classList.add('post');
 
-        // Get followers for the post's user
-        const followers = users[post.user] ? users[post.user].followers : [];
-        const followText = followers.includes('currentUser') ? 'Unfollow' : 'Follow';  // Assume 'currentUser' is the logged-in user
+        // Determine follow/unfollow button text
+        const isFollowed = followedUsers.includes(post.user);
+        const followText = isFollowed ? 'Unfollow' : 'Follow';  
 
         postElement.innerHTML = `
             <h4>${post.user}</h4>
@@ -51,10 +51,10 @@ function loadPosts() {
             ${post.image ? `<img src="${post.image}" alt="Post Image" style="max-width: 100%;">` : ''}
             <p class="post-timestamp">${formatDateTime(post.timestamp)}</p>
             <div class="reaction-buttons">
-                <button onclick="addReaction(${index}, 'hearts')">❤️ ${post.reactions.hearts}</button>
-                <button onclick="addReaction(${index}, 'thumbsUps')">👍 ${post.reactions.thumbsUps}</button>
-                <button onclick="addReaction(${index}, 'smiles')">😊 ${post.reactions.smiles}</button>
-                <button onclick="removeReaction(${index})">👎 Unlike</button>
+                <button class="reaction-button" onclick="addReaction(${index}, 'hearts')">❤️ ${post.reactions.hearts}</button>
+                <button class="reaction-button" onclick="addReaction(${index}, 'thumbsUps')">👍 ${post.reactions.thumbsUps}</button>
+                <button class="reaction-button" onclick="addReaction(${index}, 'smiles')">😊 ${post.reactions.smiles}</button>
+                <button class="reaction-button" onclick="removeReaction(${index})">👎 Unlike</button>
             </div>
             <div class="comment-section">
                 <h5>Comments (<span class="comment-counter">${post.comments.length}</span>):</h5>
@@ -91,10 +91,6 @@ function addPost(user, content, image) {
     };
 
     posts.push(newPost);
-    // Initialize user if not already present
-    if (!users[user]) {
-        users[user] = { followers: [] };
-    }
     loadPosts();
 }
 
@@ -145,22 +141,12 @@ function deletePost(index) {
 
 // Function to follow/unfollow a user
 function toggleFollow(user) {
-    if (!users[user]) {
-        users[user] = { followers: [] };  // Initialize user if not present
-    }
-    
-    const followers = users[user].followers;
-    const currentUser = 'currentUser'; // Assume 'currentUser' is the logged-in user
-
-    if (followers.includes(currentUser)) {
-        // Unfollow
-        users[user].followers = followers.filter(follower => follower !== currentUser);
+    if (followedUsers.includes(user)) {
+        followedUsers = followedUsers.filter(followedUser => followedUser !== user); // Unfollow
     } else {
-        // Follow
-        users[user].followers.push(currentUser);
+        followedUsers.push(user);  // Follow
     }
-    
-    loadPosts();
+    loadPosts();  // Reload posts to update button states
 }
 
 // Function to format date and time in a readable format
