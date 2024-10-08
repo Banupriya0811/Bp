@@ -1,6 +1,6 @@
 // In-memory store for posts and followers
 let posts = [];
-let followedUsers = [];
+let followedUsers = [];  // Track followed users
 
 document.addEventListener('DOMContentLoaded', () => {
     loadPosts();
@@ -39,7 +39,9 @@ function loadPosts() {
     posts.forEach((post, index) => {
         const postElement = document.createElement('div');
         postElement.classList.add('post');
-        const followText = followedUsers.includes(post.user) ? 'Unfollow' : 'Follow';
+
+        const followText = followedUsers.includes(post.user) ? 'Unfollow' : 'Follow';  // Toggle button text
+
         postElement.innerHTML = `
             <h4>${post.user}</h4>
             <button class="follow-button" onclick="toggleFollow('${post.user}', ${index})">${followText}</button>
@@ -136,11 +138,11 @@ function deletePost(index) {
 }
 
 // Function to follow/unfollow a user
-function toggleFollow(user, index) {
+function toggleFollow(user) {
     if (followedUsers.includes(user)) {
-        followedUsers = followedUsers.filter(follower => follower !== user);
+        followedUsers = followedUsers.filter(followedUser => followedUser !== user); // Unfollow
     } else {
-        followedUsers.push(user);
+        followedUsers.push(user);  // Follow
     }
     loadPosts();
 }
