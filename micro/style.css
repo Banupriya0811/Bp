@@ -1,127 +1,142 @@
-/* Basic Reset */
-* {
+/* B/* General styles */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h4 {
+    margin: 0;
+}
+
+/* Post form styles */
+.post-form {
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Input styles */
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     box-sizing: border-box;
 }
 
-/* Body Styling */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4; /* Light background */
-    color: #333; /* Dark text for contrast */
-    line-height: 1.6; /* Improved readability */
-    padding: 20px; /* Add padding around the content */
+input[type="file"] {
+    margin: 10px 0;
 }
 
-/* Main Container */
-.container {
-    max-width: 800px; /* Center the content */
-    margin: 0 auto; /* Center horizontally */
-    padding: 20px;
-    background: white; /* White background for the container */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
-
-/* Header Styling */
-h1 {
-    text-align: center; /* Center the title */
-    color: #4A90E2; /* Primary color for the title */
-    margin-bottom: 20px; /* Space below the title */
-}
-
-/* Post Container */
-#posts {
-    margin-top: 20px; /* Space above the posts */
-}
-
-/* Post Styling */
-.post {
-    background: #ffffff; /* White background for posts */
-    border: 1px solid #ddd; /* Light gray border */
-    border-radius: 8px; /* Rounded corners */
-    padding: 15px; /* Padding inside posts */
-    margin-bottom: 20px; /* Space between posts */
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Shadow for depth */
-}
-
-/* User Name */
-h4 {
-    margin-bottom: 10px; /* Space below user name */
-    color: #333; /* Darker color for user names */
-}
-
-/* Button Styling */
+/* Button styles */
 button {
-    background-color: #4A90E2; /* Primary button color */
-    color: #ffffff; /* White text color */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners */
-    padding: 8px 12px; /* Padding inside buttons */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth transition */
-    margin-right: 5px; /* Space between buttons */
-    font-size: 14px; /* Font size for buttons */
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #357ABD; /* Darker shade on hover */
+    background-color: #218838;
 }
 
-/* Comment Section */
-.comment-section {
-    margin-top: 15px; /* Space above the comment section */
+/* Post styles */
+.post {
+    background-color: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Input for Comments */
-.comment-input {
-    width: 70%; /* Width of the comment input */
-    padding: 8px; /* Padding inside input */
-    margin-right: 5px; /* Space to the right */
-    border: 1px solid #ddd; /* Light border */
-    border-radius: 4px; /* Rounded corners */
+/* Image styles */
+.post img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 5px;
 }
 
-/* Reaction Buttons */
+/* Reaction buttons container */
 .reaction-buttons {
-    margin-top: 10px; /* Space above reaction buttons */
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-/* Timestamp Styling */
-.post-timestamp,
-.comment-timestamp {
-    font-size: 0.9em; /* Smaller font size for timestamps */
-    color: #888; /* Light gray color for timestamps */
+/* Individual reaction button styles */
+.reaction-button,
+.delete-button,
+.follow-button {
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-/* Delete Button Styling */
-.delete-button {
-    background-color: #d9534f; /* Danger color for delete */
+.reaction-button:hover,
+.delete-button:hover,
+.follow-button:hover {
+    background-color: #e84118;
 }
 
-.delete-button:hover {
-    background-color: #c9302c; /* Darker shade on hover */
+/* Comment input styles */
+.comment-input {
+    width: calc(100% - 80px);
+    margin-right: 5px;
 }
 
-/* Comment List */
-ul {
-    list-style-type: none; /* Remove bullets from list */
-    padding-left: 0; /* Remove padding from list */
+/* Comment counter styles */
+.comment-counter {
+    font-size: 0.9em;
+    color: #555;
 }
 
-.comment-section h5 {
-    margin-bottom: 10px; /* Space below comments title */
+/* Timestamp styles */
+.post-timestamp, .comment-timestamp {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 5px;
 }
 
-/* Responsive Styles */
-@media (max-width: 600px) {
-    .comment-input {
-        width: 100%; /* Full width on small screens */
-    }
-
-    button {
-        width: 100%; /* Full width for buttons on small screens */
-        margin-bottom: 5px; /* Space below buttons */
-    }
+/* Additional styles for comments */
+.comment-section {
+    margin-top: 10px;
 }
+
+/* Style for comment list */
+.comment-section ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comment-section li {
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border-radius: 3px;
+}
+
+/* Comment input button styles */
+.comment-button {
+    background-color: #007bff;
+    padding: 5px 10px;
+}
+
+.comment-button:hover {
+    background-color: #0056b3;
+}
+asic Reset */
