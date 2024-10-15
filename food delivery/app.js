@@ -1,71 +1,53 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const cart = [];
-    const cartDetails = document.getElementById('cart-details');
-    const totalAmount = document.getElementById('total-amount');
-    const checkoutButton = document.getElementById('checkout-btn');
-    const orderStatus = document.getElementById('order-status');
+let cart = [];
+let totalAmount = 0;
 
-    // Add to Cart
-    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            const restaurant = this.dataset.restaurant;
-            const item = this.dataset.item;
-            const price = parseFloat(this.dataset.price);
-            
-            cart.push({ restaurant, item, price });
-            updateCart();
-        });
+// Add item to cart
+document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const restaurant = button.getAttribute('data-restaurant');
+        const item = button.getAttribute('data-item');
+        const price = parseFloat(button.getAttribute('data-price'));
+
+        // Add item to cart
+        cart.push({ restaurant, item, price });
+        totalAmount += price;
+
+        // Update cart display
+        updateCart();
+    });
+});
+
+// Update cart display
+function updateCart() {
+    const cartDetails = document.getElementById('cart-details');
+    cartDetails.innerHTML = ''; // Clear current cart
+
+    cart.forEach(item => {
+        const div = document.createElement('div');
+        div.textContent = `${item.item} from ${item.restaurant} - $${item.price}`;
+        cartDetails.appendChild(div);
     });
 
-    // Update Cart
-    function updateCart() {
-        cartDetails.innerHTML = '';
-        let total = 0;
+    document.getElementById('total-amount').textContent = `Total Amount: $${totalAmount.toFixed(2)}`;
+    document.getElementById('checkout-btn').disabled = cart.length === 0; // Enable checkout if cart is not empty
+}
 
-        cart.forEach(item => {
-            const div = document.createElement('div');
-            div.textContent = `${item.item} from ${item.restaurant} - $${item.price.toFixed(2)}`;
-            cartDetails.appendChild(div);
-            total += item.price;
-        });
+// Checkout
+document.getElementById('checkout-btn').addEventListener('click', () => {
+    const deliveryAddress = document.getElementById('delivery-address').value;
+    const paymentMethod = document.getElementById('payment-method').value;
 
-        totalAmount.textContent = `Total Amount: $${total.toFixed(2)}`;
-        checkoutButton.disabled = cart.length === 0;
+    if (!deliveryAddress) {
+        alert('Please enter your delivery address.');
+        return;
     }
 
-    // Handle rating
-    document.querySelectorAll('.rating').forEach(select => {
-        select.addEventListener('change', function () {
-            const rating = this.value;
-            const item = this.dataset.item;
-            const restaurant = this.dataset.restaurant;
-            console.log(`User rated ${item} from ${restaurant} as ${rating} stars`);
-        });
-    });
+    // Simulate order placement
+    const orderStatus = document.getElementById('order-status');
+    orderStatus.textContent = `Order placed! Total: $${totalAmount.toFixed(2)}. Delivery to: ${deliveryAddress}. Payment Method: ${paymentMethod}.`;
 
-    // Checkout Process
-    checkoutButton.addEventListener('click', function () {
-        const address = document.getElementById('delivery-address').value;
-        const paymentMethod = document.getElementById('payment-method').value;
-        const cardNumber = document.getElementById('card-number').value;
-        const cardExpiry = document.getElementById('card-expiry').value;
-        const cardCVC = document.getElementById('card-cvc').value;
-
-        // Simple validation
-        if (!address || (paymentMethod === 'credit-card' && (!cardNumber || !cardExpiry || !cardCVC))) {
-            orderStatus.textContent = 'Please fill all required fields!';
-            return;
-        }
-
-        // Simulate order processing
-        orderStatus.textContent = `Order placed! Delivering to: ${address}. Total Amount: $${totalAmount.textContent.split('$')[1]}`;
-        
-        // Clear cart
-        cart.length = 0;
-        updateCart();
-        document.getElementById('delivery-address').value = '';
-        document.getElementById('card-number').value = '';
-        document.getElementById('card-expiry').value = '';
-        document.getElementById('card-cvc').value = '';
-    });
+    // Reset cart and total
+    cart = [];
+    totalAmount = 0;
+    updateCart();
 });
