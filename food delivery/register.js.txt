@@ -1,0 +1,21 @@
+// register.js
+document.getElementById('register-form').addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent form submission
+
+    const username = document.getElementById('new-username').value;
+    const password = document.getElementById('new-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+
+    if (password !== confirmPassword) {
+        document.getElementById('register-status').innerText = 'Passwords do not match!';
+        return;
+    }
+
+    // Here you can implement your logic to register the user
+    // For example, a simple confirmation
+    document.getElementById('register-status').innerText = 'Registration successful! You can now login.';
+    // Optionally redirect to login page
+    setTimeout(() => {
+        window.location.href = "login.html";
+    }, 2000);
+});
