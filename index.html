@@ -1,44 +1,73 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple HTML Page</title>
+    <title>Simple Home Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        nav {
+            margin: 10px 0;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #4CAF50;
+        }
+        main {
+            padding: 20px;
+            background-color: white;
             margin: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h1 {
-            color: #333;
-        }
-        p {
-            color: #666;
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #4CAF50;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Welcome to My Website</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="https://banupriya0811.github.io/Bp/portfolio/priya.html">portfolio</a></li>
-                <li><a href="https://banupriya0811.github.io/Bp/TO do.html">TO-DO list</a></li>
-                <li><a href="https://banupriya0811.github.io/Bp/microblog/index.html">micro blogging</a></li>
-                <li><a href="https://banupriya0811.github.io/Bp/food delivery/index.html">food delivery</a></li>
-            </ul>
-        </nav>
+        <h1>Welcome to My Home Page</h1>
     </header>
+    <nav>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="https://banupriya0811.github.io/Bp/portfolio/priya.html">portfolio</a></li>
+        <li><a href="https://banupriya0811.github.io/Bp/TO do.html">TO-DO list</a></li>
+        <li><a href="https://banupriya0811.github.io/Bp/microblog/index.html">micro blogging</a></li>
+        <li><a href="https://banupriya0811.github.io/Bp/food delivery/index.html">food delivery</a></li>
+        
+    </nav>
     <main>
-        <h2>Home Page Content</h2>
-        <p>This is the content of the home page.</p>
-        <p>Check out my <a href="port.html">portfolio</a> for more details.</p> <!-- Another link to port.html -->
-    </main>
+        <h2>About Me</h2>
+        <p>This is a simple home page created using HTML. Here, you can add information about yourself or your website.</p>
 
+        <h2>Services</h2>
+        <p>List the services you offer or any other relevant information.</p>
+
+        <h2>Contact</h2>
+        <p>Provide contact information or a contact form.</p>
+    </main>
     <footer>
-        <p>&copy; 2024 All rights reserved.</p>
+        <p>&copy; 2024 My Home Page</p>
     </footer>
 </body>
 </html>
+
