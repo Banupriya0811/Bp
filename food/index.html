@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Food Delivery App</h1>
+        <nav>
+            <a href="#" id="menuLink" onclick="showMenu()">Menu</a>
+            <a href="#" id="profileLink" onclick="showProfile()" style="display: none;">Profile</a>
+            <a href="#" id="logoutLink" onclick="logout()" style="display: none;">Logout</a>
+        </nav>
+    </header>
+    <main>
+        <div id="loginForm" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeLogin()">&times;</span>
+                <h2>Login</h2>
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button onclick="login()">Login</button>
+            </div>
+        </div>
+
+        <div id="menu" style="display: none;">
+            <h2>Menu</h2>
+            <input type="text" id="searchBar" placeholder="Search for food..." oninput="searchFood()">
+            <div id="foodList" class="food-list"></div>
+            <div id="cart" class="cart">
+                <h2>Cart</h2>
+                <ul id="cartItems"></ul>
+                <h3>Total: $<span id="totalAmount">0</span></h3>
+                <button onclick="checkout()">Checkout</button>
+            </div>
+        </div>
+
+        <div id="profile" style="display: none;">
+            <h2>User Profile</h2>
+            <p>Username: <span id="profileUsername"></span></p>
+            <p>Address: <span id="profileAddress"></span></p>
+            <input type="text" id="addressInput" placeholder="Enter your address" style="display: none;">
+            <button onclick="editAddress()" id="editAddressButton">Edit Address</button>
+            <button onclick="showMenu()">Back to Menu</button>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
