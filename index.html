@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,9 +18,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: #e1f5fe; /* Light blue background */
+            background-image: url('https://source.unsplash.com/1600x900/?technology,code'); /* Attractive background image */
+            background-size: cover; /* Ensures the image covers the entire viewport */
+            background-position: center; /* Centers the image */
+            background-attachment: fixed; /* Makes the image stay fixed when scrolling */
             color: #333; /* Dark text color */
             padding: 20px;
+            position: relative;
+        }
+
+        /* Overlay to ensure content is visible on top of the background */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Semi-transparent black overlay */
+            z-index: 1;
         }
 
         .container {
@@ -32,6 +47,8 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             width: 100%;
+            position: relative;
+            z-index: 2; /* Ensures the container is above the overlay */
             transition: transform 0.3s ease;
         }
 
